@@ -1,0 +1,37 @@
+name: Publicar Navidad con el Corazón 2026
+on:
+  push:
+    branches: [main]
+    paths:
+      - "navidadconelcorazon2026/**"
+      - ".github/workflows/navidad-pages.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages-navidad"
+  cancel-in-progress: true
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener repositorio
+        uses: actions/checkout@v4
+      - name: Preparar sitio de campaña
+        run: |
+          mkdir -p _site
+          cp -R navidadconelcorazon2026/. _site/
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Subir sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v4
