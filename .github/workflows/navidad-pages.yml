@@ -1,9 +1,10 @@
-name: Publicar Navidad con el Corazón 2026
+name: Publicar Grupo AVASA y Navidad con el Corazón 2026
 on:
   push:
     branches: [main]
     paths:
-      - "navidadconelcorazon2026/**"
+      - "index.html"
+      - "navidad/**"
       - ".github/workflows/navidad-pages.yml"
   workflow_dispatch:
 permissions:
@@ -11,7 +12,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: "pages-navidad"
+  group: "pages-grupoavasa"
   cancel-in-progress: true
 jobs:
   deploy:
@@ -22,10 +23,11 @@ jobs:
     steps:
       - name: Obtener repositorio
         uses: actions/checkout@v4
-      - name: Preparar sitio de campaña
+      - name: Preparar sitio corporativo y campaña
         run: |
-          mkdir -p _site
-          cp -R navidadconelcorazon2026/. _site/
+          mkdir -p _site/navidad
+          cp index.html _site/index.html
+          cp -R navidad/. _site/navidad/
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
       - name: Subir sitio
