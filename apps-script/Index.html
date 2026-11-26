@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--wine:#65001f;--deep:#390012;--gold:#d9b45c;--cream:#fff8ed;--ink:#2d1720;--muted:#806b70}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:linear-gradient(145deg,var(--deep),var(--wine) 60%,#8a173e);font:14px/1.5 Inter,system-ui,Arial,sans-serif;color:var(--ink)}
+.card{width:min(100%,430px);background:#fffdf8;border:1px solid var(--gold);border-radius:16px;padding:34px;box-shadow:0 24px 80px #18000966}
+.brand{text-align:center;color:var(--wine);font:700 21px Georgia,serif;letter-spacing:.14em}.sub{text-align:center;color:var(--muted);font-size:10px;letter-spacing:.2em;margin-top:5px}
+h1{text-align:center;font:400 29px Georgia,serif;color:var(--wine);margin:28px 0 5px}p{text-align:center;color:var(--muted);font-size:13px;margin:0 0 24px}
+label{display:block;font-size:11px;font-weight:700;color:var(--wine);margin:14px 0 6px}input{width:100%;padding:13px;border:1px solid #dfceca;border-radius:7px;background:white;font:14px inherit;color:var(--ink)}input:focus{outline:2px solid #d9b45c66;border-color:var(--gold)}
+button{width:100%;border:0;border-radius:7px;background:var(--wine);color:white;font-weight:700;padding:14px;margin-top:22px;cursor:pointer}button:disabled{opacity:.65;cursor:wait}
+#status{min-height:22px;text-align:center;color:#8a173e;font-size:12px;margin-top:14px}.foot{text-align:center;color:#a18d8e;font-size:10px;margin-top:24px}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="brand">AVASA CONTROL</div><div class="sub">GRUPO AVASA · ADMINISTRACIÓN</div>
+  <h1>Iniciar sesión</h1><p>Ingresa tus credenciales administrativas.</p>
+  <form id="loginForm">
+    <label for="username">Usuario</label><input id="username" autocomplete="username" required maxlength="32">
+    <label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required maxlength="256">
+    <button id="submit" type="submit">Entrar al panel</button>
+  </form>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div class="foot">Acceso privado · Grupo AVASA</div>
+</main>
+<script>
+const form=document.getElementById('loginForm'),button=document.getElementById('submit'),status=document.getElementById('status');
+form.addEventListener('submit',function(e){
+  e.preventDefault();button.disabled=true;status.textContent='Verificando credenciales…';
+  google.script.run.withSuccessHandler(function(result){
+    button.disabled=false;
+    if(!result||!result.ok){status.textContent=(result&&result.message)||'No se pudo iniciar sesión.';return;}
+    sessionStorage.setItem('avasa_session',result.token);
+    status.textContent='Acceso validado. Sesión iniciada para '+result.username+'.';
+    document.querySelector('h1').textContent='Acceso autorizado';
+    form.innerHTML='<p>Tu sesión administrativa está activa.</p><button type="button" id="logout">Cerrar sesión</button>';
+    document.getElementById('logout').addEventListener('click',function(){
+      google.script.run.withSuccessHandler(function(){sessionStorage.removeItem('avasa_session');location.reload();}).apiLogout(result.token);
+    });
+  }).withFailureHandler(function(err){button.disabled=false;status.textContent='Error del servidor: '+(err&&err.message?err.message:'intenta nuevamente');})
+  .apiLogin(document.getElementById('username').value,document.getElementById('password').value);
+});
+</script>
+</body></html>
