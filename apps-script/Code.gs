@@ -47,7 +47,7 @@ function apiLogin(usernameInput, passwordInput) {
     const expires = Date.now() + SESSION_TTL_SECONDS * 1000;
     PropertiesService.getScriptProperties().setProperty('session_' + digest_(token), JSON.stringify({username:username,role:String(row[3]),expires:expires}));
     sheet.getRange(i + 1, 7).setValue(new Date());
-    return {ok:true,token:token,username:username,role:String(row[3]),expires:expires};
+    const roleRaw=String(row[3]||'USER').toUpperCase();\n    const role=(roleRaw==='ADMINISTRADOR'||roleRaw==='ADMIN')?'ADMIN':(roleRaw==='EDITOR'?'EDITOR':'USER');\n    return {ok:true,token:token,username:username,role:role,expires:expires};
   }
   return {ok:false,message:'Usuario o contraseña incorrectos.'};
 }
