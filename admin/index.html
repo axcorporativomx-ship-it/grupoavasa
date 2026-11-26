@@ -1,140 +1,36 @@
 <!doctype html>
-<html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#65001f"><title>AVASA Control | Grupo AVASA</title>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#681331">
+<title>AVASA Control | Acceso administrativo</title>
 <style>
-:root{--wine:#65001f;--deep:#390012;--gold:#d9b45c;--cream:#fff8ed;--paper:#fffdf8;--ink:#2d1720;--muted:#806b70;--line:#ead9d8;--green:#526b50}*{box-sizing:border-box}body{margin:0;background:#f7f1e9;color:var(--ink);font:14px/1.5 Inter,system-ui,Arial,sans-serif}.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{background:var(--deep);color:white;padding:28px 18px}.logo{font:700 22px Georgia,serif;letter-spacing:.08em;color:var(--gold);padding:8px 12px 26px;border-bottom:1px solid #ffffff25}.logo small{display:block;color:#ffffff90;font:9px Arial;letter-spacing:.22em;margin-top:7px}.navlabel{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#d9b45c;margin:26px 12px 10px}.nav a{display:flex;gap:12px;align-items:center;color:#ffffffc9;padding:12px;border-radius:7px;text-decoration:none;font-size:12px}.nav a.active,.nav a:hover{background:#ffffff16;color:white}.main{min-width:0}.topbar{height:74px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px}.crumb{font-size:11px;color:var(--muted)}.user{font-size:11px;color:var(--wine);font-weight:700}.content{padding:34px;max-width:1400px;margin:auto}.welcome{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--wine);font-weight:800}.welcome h1{font:400 clamp(30px,4vw,44px) Georgia,serif;color:var(--wine);margin:8px 0}.welcome p{color:var(--muted);margin:0}.notice{background:#fff2d7;border:1px solid #ead49e;color:#70501b;padding:13px 16px;border-radius:8px;font-size:12px;margin-bottom:24px}.notice b{display:block;margin-bottom:3px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat,.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px}.stat span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.stat strong{display:block;font:32px Georgia,serif;color:var(--wine);margin:12px 0 4px}.stat small{font-size:10px;color:var(--muted)}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}.panel h2{font:22px Georgia,serif;color:var(--wine);margin:0 0 5px}.sub{font-size:11px;color:var(--muted);margin-bottom:20px}.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.action{padding:16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);background:white}.action b{display:block;color:var(--wine);margin-bottom:5px}.action span{font-size:11px;color:var(--muted)}.activity{display:grid;gap:15px}.event{border-bottom:1px solid var(--line);padding-bottom:12px}.event b{font-size:12px}.event span{display:block;font-size:10px;color:var(--muted);margin-top:3px}.tag{display:inline-block;background:#f3e9d8;color:#795a24;padding:4px 8px;border-radius:20px;font-size:9px;font-weight:700}.footer{padding:24px 34px;color:var(--muted);font-size:10px}@media(max-width:950px){.shell{grid-template-columns:1fr}.side{padding:16px}.nav{display:flex;overflow:auto;gap:4px}.navlabel{display:none}.logo{padding:4px 8px 12px}.nav a{white-space:nowrap}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.content{padding:22px 16px}.topbar{padding:0 18px}.grid{grid-template-columns:1fr}.welcome{display:block}.stats{gap:8px}.stat{padding:14px}.stat strong{font-size:26px}.actions{grid-template-columns:1fr 1fr}}
+:root{--wine:#681331;--deep:#41091f;--gold:#c2a06a;--cream:#fffaf2}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(145deg,var(--deep),var(--wine));font-family:Arial,Helvetica,sans-serif;color:#30272a}
+main{width:min(100%,460px);padding:42px 34px;background:var(--cream);border:1px solid var(--gold);border-radius:18px;text-align:center;box-shadow:0 25px 80px #16000a66}
+.brand{font:800 23px Georgia,serif;letter-spacing:.13em;color:var(--wine)}
+.brand span{color:var(--gold)}
+h1{font:400 32px Georgia,serif;color:var(--wine);margin:25px 0 10px}
+p{font-size:14px;line-height:1.7;color:#766b6d}
+a{display:block;margin-top:25px;padding:15px 18px;background:var(--wine);color:white;text-decoration:none;font-weight:700;border-radius:8px}
+a:hover{background:var(--deep)}
+small{display:block;margin-top:18px;color:#8b7c7e;font-size:11px}
 </style>
-<style>
-#avasaAuthGate{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:24px;background:linear-gradient(145deg,#390012,#65001f 58%,#8a173e);font-family:Inter,system-ui,Arial,sans-serif}
-#avasaAuthCard{width:min(100%,440px);background:#fffdf8;border:1px solid #d9b45c;border-radius:16px;padding:34px;box-shadow:0 24px 80px #18000966;text-align:center;color:#2d1720}
-#avasaAuthCard .brand{font:700 20px Georgia,serif;letter-spacing:.12em;color:#65001f}
-#avasaAuthCard h1{font:400 30px Georgia,serif;color:#65001f;margin:22px 0 8px}
-#avasaAuthCard p{font-size:13px;color:#806b70;line-height:1.6}
-#avasaGoogleLogin{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;margin-top:22px;padding:13px 16px;border:1px solid #d8c9c7;border-radius:8px;background:white;color:#2d1720;font-weight:700;cursor:pointer}
-#avasaGoogleLogin:disabled{opacity:.6;cursor:wait}
-#avasaAuthStatus{min-height:20px;margin-top:14px;font-size:12px;color:#8a173e}
-#avasaSignOut{margin-left:14px;border:1px solid #ead9d8;background:#fffdf8;color:#65001f;border-radius:6px;padding:7px 10px;font-size:11px;cursor:pointer}
-@media(max-width:600px){#avasaAuthCard{padding:26px 20px}}
-</style>
-</head><body>
-<div id="avasaAuthGate">
- <section id="avasaAuthCard">
-  <div class="brand">AVASA CONTROL</div>
-  <h1>Acceso administrativo</h1>
-  <p>Inicia sesión con la cuenta de Google autorizada para administrar Grupo AVASA.</p>
-  <button id="avasaGoogleLogin" type="button"><span aria-hidden="true">G</span> Continuar con Google</button>
-  <div id="avasaAuthStatus" role="status" aria-live="polite">Acceso restringido</div>
- </section>
-</div><div class="shell" hidden><aside class="side"><div class="logo">AVASA CONTROL<small>GRUPO AVASA · ADMINISTRACIÓN</small></div><div class="navlabel">Principal</div><nav class="nav"><a class="active" href="#inicio">◈　Dashboard</a><a href="#contenido">▤　Sitio y contenido</a><a href="#comunicados">▣　Boletines y comunicados</a><a href="#estadisticas">▥　Estadísticas</a><a href="#documentos">▧　Documentos PDF</a><a href="#paginas">＋　Páginas y rutas</a></nav><div class="navlabel">Organización</div><nav class="nav"><a href="#empleados">♙　Empleados</a><a href="#correo">✉　Correo institucional</a><a href="#redes">◎　Redes sociales</a><a href="#usuarios">⚙　Usuarios y permisos</a><a href="#auditoria">◷　Historial</a></nav></aside><main class="main"><header class="topbar"><span class="crumb">Grupo AVASA　/　Administración　/　Inicio</span><span class="user">PORTAL ADMINISTRATIVO</span></header><div class="content" id="inicio"><div class="welcome"><div><div class="eyebrow">Centro de control corporativo</div><h1>Bienvenido a AVASA Control</h1><p>Administra la presencia digital y las herramientas internas de Grupo AVASA.</p></div><span class="tag">Vista inicial · Fase de implementación</span></div><div class="notice" id="connectionNotice"><b>Comprobando conexión con Google Sheets…</b>AVASA Control está verificando el servicio de datos.</div><section class="stats" id="estadisticas"><article class="stat"><span>Visitas al sitio</span><strong>—</strong><small>Conectar analítica para mostrar datos reales</small></article><article class="stat"><span>Comunicados publicados</span><strong>—</strong><small>Se calculará desde el gestor de contenido</small></article><article class="stat"><span>Documentos</span><strong>—</strong><small>Archivos registrados en la biblioteca</small></article><article class="stat"><span>Empleados activos</span><strong>—</strong><small>Directorio interno privado</small></article></section><div class="grid"><section class="panel"><h2>Accesos de administración</h2><div class="sub">Módulos previstos para la operación diaria</div><div class="actions"><a class="action" href="#contenido"><b>Editor del sitio</b><span>Textos, menús, imágenes y secciones</span></a><a class="action" href="#comunicados"><b>Boletines y comunicados</b><span>Redactar, programar y publicar noticias</span></a><a class="action" href="#documentos"><b>Biblioteca documental</b><span>PDF, archivos y enlaces de Drive</span></a><a class="action" href="#paginas"><b>Crear una página</b><span>Generar nuevas rutas del sitio</span></a><a class="action" href="#empleados"><b>Portal de empleados</b><span>Avisos, documentos y directorio privado</span></a><a class="action" href="#correo"><b>Centro de correo</b><span>Envíos institucionales y listas</span></a></div></section><section class="panel"><h2>Actividad reciente</h2><div class="sub">La actividad aparecerá al conectar el sistema</div><div class="activity"><div class="event"><b>Panel AVASA Control creado</b><span>Interfaz inicial · GitHub Pages</span></div><div class="event"><b>Servicios de autenticación</b><span>Pendiente de configurar</span></div><div class="event"><b>Publicación y base de datos</b><span>Pendiente de conectar</span></div></div></section></div><div class="footer">AVASA Control · Grupo AVASA · Panel de administración en construcción</div></div></main></div>
+</head>
+<body>
+<main>
+<div class="brand"><span>GRUPO</span> AVASA</div>
+<h1>AVASA Control</h1>
+<p>Abriendo el acceso administrativo seguro. Inicia sesión con el usuario y la contraseña registrados en la hoja de usuarios de Google Sheets.</p>
+<a id="openApp" href="https://script.google.com/macros/s/AKfycbynFq4bv5nLNS67X3bVkmvU9WGn0qSGmYzkU329o2ZRtgOZf4NAVVN3HcYoQ2RRpkVlQQ/exec">Entrar a AVASA Control</a>
+<small>Acceso privado · Grupo AVASA</small>
+</main>
 <script>
-(function(){
-  const endpoint='https://script.google.com/macros/s/AKfycbynFq4bv5nLNS67X3bVkmvU9WGn0qSGmYzkU329o2ZRtgOZf4NAVVN3HcYoQ2RRpkVlQQ/exec';
-  const notice=document.getElementById('connectionNotice');
-  const cb='avasaSheetsCallback';
-  window[cb]=function(data){
-    if(data && data.success){
-      notice.style.background='#edf5eb';
-      notice.style.borderColor='#b9d2b4';
-      notice.style.color='#355b35';
-      notice.innerHTML='<b>Conexión con Google Sheets activa</b>Archivo: '+escapeHtml(data.archivo)+' · '+data.hojas.length+' pestañas detectadas. La lectura de datos está disponible; los módulos de edición y autenticación siguen en configuración.';
-      const activity=document.querySelector('.activity');
-      if(activity){
-        const event=document.createElement('div'); event.className='event';
-        const b=document.createElement('b'); b.textContent='Google Sheets conectado';
-        const span=document.createElement('span'); span.textContent=data.hojas.length+' pestañas detectadas · '+new Date(data.fecha).toLocaleString('es-MX');
-        event.append(b,span); activity.prepend(event);
-      }
-    } else {
-      notice.innerHTML='<b>No se pudo confirmar la conexión</b>Revisa la implementación de Apps Script y sus permisos.';
-    }
-    const s=document.getElementById('avasa-sheets-jsonp'); if(s) s.remove();
-    try{delete window[cb];}catch(e){}
-  };
-  function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-  const s=document.createElement('script'); s.id='avasa-sheets-jsonp';
-  s.src=endpoint+'?callback='+cb+'&_='+Date.now();
-  s.onerror=function(){notice.innerHTML='<b>Error al conectar con Google Sheets</b>Comprueba que la implementación de Apps Script esté publicada y accesible.';};
-  document.head.appendChild(s);
-})();
+const appUrl="https://script.google.com/macros/s/AKfycbynFq4bv5nLNS67X3bVkmvU9WGn0qSGmYzkU329o2ZRtgOZf4NAVVN3HcYoQ2RRpkVlQQ/exec";
+document.getElementById("openApp").href=appUrl;
+window.location.replace(appUrl);
 </script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDGYQCxDrafBw7gD0iZ7M_9duD86zTvPF8",
-  authDomain: "control-avasa.firebaseapp.com",
-  projectId: "control-avasa",
-  storageBucket: "control-avasa.firebasestorage.app",
-  messagingSenderId: "293740658274",
-  appId: "1:293740658274:web:0d3d768bca0efd625b5b3b"
-};
-const ADMIN_EMAIL = "alexisstcuu@gmail.com";
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-auth.languageCode = "es";
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
-
-const gate = document.getElementById("avasaAuthGate");
-const loginButton = document.getElementById("avasaGoogleLogin");
-const status = document.getElementById("avasaAuthStatus");
-const shell = document.querySelector(".shell");
-
-function showGate(message) {
-  gate.hidden = false;
-  shell.hidden = true;
-  status.textContent = message || "Acceso restringido";
-}
-function showPanel(user) {
-  gate.hidden = true;
-  shell.hidden = false;
-  const userLabel = document.querySelector(".user");
-  if (userLabel) {
-    userLabel.textContent = user.email || "ADMINISTRADOR";
-    const out = document.createElement("button");
-    out.id = "avasaSignOut";
-    out.type = "button";
-    out.textContent = "Cerrar sesión";
-    out.addEventListener("click", async () => {
-      await signOut(auth);
-      showGate("Sesión cerrada");
-    });
-    userLabel.replaceChildren(document.createTextNode(user.email || "ADMINISTRADOR"), out);
-  }
-}
-loginButton.addEventListener("click", async () => {
-  loginButton.disabled = true;
-  status.textContent = "Conectando con Google…";
-  try {
-    const result = await signInWithPopup(auth, provider);
-    if ((result.user.email || "").toLowerCase() !== ADMIN_EMAIL) {
-      await signOut(auth);
-      showGate("Esta cuenta no está autorizada para administrar AVASA Control.");
-    }
-  } catch (error) {
-    status.textContent = "Error de acceso: " + (error.code || "desconocido") + ". " +
-      (error.code === "auth/unauthorized-domain"
-        ? "Agrega grupoavasa.mx en Firebase > Authentication > Settings > Authorized domains."
-        : error.code === "auth/operation-not-allowed"
-          ? "Verifica que Google esté habilitado como proveedor en Firebase Authentication."
-          : error.code === "auth/popup-blocked"
-            ? "Permite las ventanas emergentes para grupoavasa.mx y vuelve a intentarlo."
-            : error.code === "auth/invalid-oauth-client-id"
-              ? "Revisa la configuración del proveedor Google en Firebase."
-              : "Abre la consola del navegador para consultar el detalle.");
-    console.error("AVASA Authentication:", error);
-  } finally {
-    loginButton.disabled = false;
-  }
-});
-onAuthStateChanged(auth, async (user) => {
-  if (user && (user.email || "").toLowerCase() === ADMIN_EMAIL && user.emailVerified) {
-    showPanel(user);
-  } else {
-    if (user) await signOut(auth);
-    showGate("Inicia sesión con alexisstcuu@gmail.com");
-  }
-});
-</script>
-</body></html>
+</body>
+</html>
