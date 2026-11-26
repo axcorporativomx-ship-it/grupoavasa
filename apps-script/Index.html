@@ -19,7 +19,7 @@
 <script>
 let token=sessionStorage.getItem('avasa_token')||'',role='';
 const $=id=>document.getElementById(id);
-function call(name,args,ok,fail){const runner=google.script.run.withSuccessHandler(ok).withFailureHandler(fail||((e)=>alert(e.message||'Error del servidor')));runner[name].apply(runner,args);}
+function call(name,args,ok,fail){const runner=google.script.run.withSuccessHandler(ok).withFailureHandler(fail||((e)=>alert(e.message||'Error del servidor')));runner[name](...args);}
 function enter(result){token=result.token;role=result.role;sessionStorage.setItem('avasa_token',token);$('loginView').style.display='none';$('appView').style.display='block';$('who').textContent=result.username+' · '+role;loadDashboard();}
 $('loginForm').addEventListener('submit',e=>{e.preventDefault();$('loginBtn').disabled=true;$('loginMsg').textContent='Validando acceso…';call('apiLogin',[$('username').value,$('password').value],r=>{$('loginBtn').disabled=false;if(!r||!r.ok){$('loginMsg').textContent=r?.message||'Credenciales incorrectas.';return;}enter(r);},err=>{$('loginBtn').disabled=false;$('loginMsg').textContent=err.message||'Error de conexión.';});});
 function loadDashboard(){call('apiDashboard',[token],r=>{if(!r.ok)return;$('nUsers').textContent=r.users;$('nNews').textContent=r.boletines;$('nPages').textContent=r.paginas;},err=>alert(err.message));}
