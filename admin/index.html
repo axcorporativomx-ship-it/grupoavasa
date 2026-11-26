@@ -113,9 +113,16 @@ loginButton.addEventListener("click", async () => {
       showGate("Esta cuenta no está autorizada para administrar AVASA Control.");
     }
   } catch (error) {
-    status.textContent = error.code === "auth/popup-closed-by-user"
-      ? "Se cerró la ventana de Google. Inténtalo de nuevo."
-      : "No se pudo iniciar sesión. Revisa la configuración de Firebase y los dominios autorizados.";
+    status.textContent = "Error de acceso: " + (error.code || "desconocido") + ". " +
+      (error.code === "auth/unauthorized-domain"
+        ? "Agrega grupoavasa.mx en Firebase > Authentication > Settings > Authorized domains."
+        : error.code === "auth/operation-not-allowed"
+          ? "Verifica que Google esté habilitado como proveedor en Firebase Authentication."
+          : error.code === "auth/popup-blocked"
+            ? "Permite las ventanas emergentes para grupoavasa.mx y vuelve a intentarlo."
+            : error.code === "auth/invalid-oauth-client-id"
+              ? "Revisa la configuración del proveedor Google en Firebase."
+              : "Abre la consola del navegador para consultar el detalle.");
     console.error("AVASA Authentication:", error);
   } finally {
     loginButton.disabled = false;
