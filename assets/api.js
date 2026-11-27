@@ -1,7 +1,7 @@
 /* Grupo AVASA API transport: GitHub Pages -> Apps Script via hidden form iframe. */
 (() => {
   'use strict';
-  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbynFq4bv5nLNS67X3bVkmvU9WGn0qSGmYzkU329o2ZRtgOZf4NAVVN3HcYoQ2RRpkVlQQ/exec';
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbybSp25g8kRdOrk90CQ1zdLrqowOjEfdDvKlhGvw__GHQj434D66c0gpV8aKJXySA7W4Q/exec';
   const pending = new Map();
 
   window.addEventListener('message', (event) => {
