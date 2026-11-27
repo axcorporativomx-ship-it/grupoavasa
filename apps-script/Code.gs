@@ -18,7 +18,10 @@ function doGet(e) {
   const p = e && e.parameter ? e.parameter : {};
   if (p.api === 'publicStats') return publicStats_(p.callback || '');
   const view = p.view === 'empleados' ? 'Empleados' : 'Index';
-  return HtmlService.createHtmlOutputFromFile(view)
+  let output;
+  try { output = HtmlService.createHtmlOutputFromFile(view); }
+  catch (error) { output = HtmlService.createHtmlOutputFromFile(view.toLowerCase()); }
+  return output
     .setTitle(view === 'Empleados' ? 'Portal de colaboradores | Grupo AVASA' : 'AVASA Control')
     .addMetaTag('viewport','width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
