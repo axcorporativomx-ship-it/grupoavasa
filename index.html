@@ -27,7 +27,7 @@ footer{background:#300817;color:white;padding:55px 0 25px}.foot-top{display:flex
 <header class="header"><div class="wrap nav">
 <a class="brand" href="/" aria-label="Grupo AVASA, inicio"><span class="brand-grupo">GRUPO</span><span class="brand-avasa">avasa</span></a>
 <button class="menu" id="menu" aria-label="Abrir menú" aria-expanded="false">☰</button>
-<nav class="links" id="links"><a href="#grupo">EL GRUPO</a><a href="#principios">PRINCIPIOS</a><a href="#proyectos">PROYECTOS</a><a href="/navidad/">NAVIDAD CON EL CORAZÓN</a><a class="cta" href="/orbitmobile/">ORBIT MOBILE ↗</a></nav>
+<nav class="links" id="links"><a href="/nosotros/">NOSOTROS</a><a href="/proyectos/">PROYECTOS</a><a href="/boletines/">BOLETINES</a><a href="/documentos/">DOCUMENTOS</a><a href="/galeria/">GALERÍA</a><a href="/contacto/">CONTACTO</a><a href="/navidad/">NAVIDAD CON EL CORAZÓN</a><a class="cta" href="/empleados/">PORTAL INTERNO ↗</a></nav>
 </div></header>
 <main>
 <section class="hero"><div class="wrap hero-in"><div class="eyebrow">Un grupo · Nuevas posibilidades</div><h1>Ideas que se convierten en <em>proyectos.</em></h1><p>En Grupo AVASA impulsamos iniciativas que conectan innovación, desarrollo empresarial y compromiso con nuestra comunidad. Construimos con visión de futuro y trabajamos para convertir cada idea en una oportunidad.</p><div class="actions"><a class="btn gold" href="#proyectos">Conoce nuestros proyectos</a><a class="btn outline" href="#grupo">Conoce el grupo</a></div></div></section>
@@ -37,14 +37,17 @@ footer{background:#300817;color:white;padding:55px 0 25px}.foot-top{display:flex
 <article class="project social"><div><div class="tag">Responsabilidad social · Comunidad</div><h3>Navidad con<br>el Corazón</h3><p>Una campaña solidaria que convoca a personas, empresas y voluntariado para reunir apoyos y compartir esperanza con familias de Ciudad Juárez.</p></div><a href="/navidad/">Conoce la campaña <span>↗</span></a></article>
 <article class="project orbit"><div><div class="tag">ORBIT MOBILE · Telecomunicaciones</div><h3>Tu conexión.<br>Tu mundo.</h3><p>Un proyecto de conectividad móvil con visión nacional. Su primera etapa contempla servicios eSIM y una evolución gradual hacia SIM tradicional.</p></div><a href="/orbitmobile/">Explora el proyecto <span>↗</span></a></article>
 </div></div></section>
+<section class="values" id="indicadores"><div class="wrap"><div class="kicker">04 / Indicadores públicos</div><h2>Resultados que cuentan<br>nuestra evolución.</h2><div class="value-grid" id="publicStats"><article class="value"><div class="num">AVASA</div><h3>Indicadores corporativos</h3><p>Las cifras públicas autorizadas se mostrarán en este espacio.</p></article></div></div></section>
 <section class="statement"><div class="wrap"><blockquote>“El futuro se construye cuando una buena idea encuentra visión, trabajo y propósito.”</blockquote><p>Grupo AVASA · Alexis Soto</p></div></section>
 </main>
-<footer><div class="wrap"><div class="foot-top"><div><a class="brand" href="/"><span class="brand-grupo">GRUPO</span><span class="brand-avasa" style="color:#e5c68f">avasa</span></a><p class="foot-copy">Iniciativas empresariales con visión de futuro, innovación y compromiso con nuestra comunidad.</p></div><div class="foot-links"><a href="#grupo">El grupo</a><a href="#principios">Principios</a><a href="/navidad/">Navidad con el Corazón</a><a href="/orbitmobile/">ORBIT MOBILE</a></div></div><div class="foot-bottom"><span>© <span id="year"></span> Grupo AVASA. Todos los derechos reservados.</span><span>Ciudad Juárez, Chihuahua · México</span></div></div></footer>
+<footer><div class="wrap"><div class="foot-top"><div><a class="brand" href="/"><span class="brand-grupo">GRUPO</span><span class="brand-avasa" style="color:#e5c68f">avasa</span></a><p class="foot-copy">Iniciativas empresariales con visión de futuro, innovación y compromiso con nuestra comunidad.</p></div><div class="foot-links"><a href="/nosotros/">Nosotros</a><a href="/proyectos/">Proyectos</a><a href="/boletines/">Boletines</a><a href="/documentos/">Documentos</a><a href="/galeria/">Galería</a><a href="/contacto/">Contacto</a><a href="/admin/">Administración</a><a href="/navidad/">Navidad con el Corazón</a><a href="/orbitmobile/">ORBIT MOBILE</a><a href="/empleados/">Portal interno</a></div></div><div class="foot-bottom"><span>© <span id="year"></span> Grupo AVASA. Todos los derechos reservados.</span><span>Ciudad Juárez, Chihuahua · México</span></div></div></footer>
 <script>
 const menu=document.getElementById('menu'),links=document.getElementById('links');
 menu.addEventListener('click',()=>{const opened=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(opened));menu.textContent=opened?'×':'☰'});
 links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
 document.getElementById('year').textContent=new Date().getFullYear();
+function renderAvasaStats(payload){const root=document.getElementById('publicStats');if(!root||!payload||!payload.stats||!payload.stats.length)return;root.innerHTML=payload.stats.map(s=>'<article class="value"><div class="num">'+String(s.periodo||'GRUPO AVASA').replace(/[<>&"]/g,'')+'</div><h3>'+String(s.valor||'').replace(/[<>&"]/g,'')+' '+String(s.unidad||'').replace(/[<>&"]/g,'')+'</h3><p>'+String(s.indicador||'').replace(/[<>&"]/g,'')+'</p></article>').join('');}
+
 </script>
-</body>
+<script src="https://script.google.com/macros/s/AKfycbynFq4bv5nLNS67X3bVkmvU9WGn0qSGmYzkU329o2ZRtgOZf4NAVVN3HcYoQ2RRpkVlQQ/exec?api=publicStats&callback=renderAvasaStats"></script></body>
 </html>
