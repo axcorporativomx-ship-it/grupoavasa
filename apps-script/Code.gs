@@ -1,6 +1,6 @@
 const SPREADSHEET_ID = '1p8iVm9GQCxHwTr4CI4wWNiJPO4JuupfO';
 const SESSION_TTL = 21600;
-const HASH_ROUNDS = 12000;
+const HASH_ROUNDS = 4000;
 
 const SCHEMAS = {
   Accesos_Sistema: ['usuario','hash_contrasena','salt','rol','activo','creado','ultimo_acceso','empleado_id'],
@@ -207,7 +207,7 @@ function normalizeRole_(role) {
 function norm_(v){return String(v||'').trim().toLowerCase();}
 function hash_(password,salt) {
   let value=String(password)+'|'+salt;
-  for(let i=0;i<HASH_ROUNDS;i++) value=Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,value));
+  for(let i=0;i<HASH_ROUNDS;i++) value=Utilities.base64EncodeWebSafe(Utilities.computeHmacSha256Signature(value,salt));
   return value;
 }
 function digest_(value){return Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,String(value)));}
