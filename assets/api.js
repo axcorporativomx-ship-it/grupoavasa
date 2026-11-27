@@ -8,7 +8,10 @@
     const msg = event.data;
     if (!msg || msg.channel !== 'AVASA_API' || !msg.nonce) return;
     const task = pending.get(msg.nonce);
-    if (!task || event.source !== task.iframe.contentWindow) return;
+    // Apps Script HtmlService puede envolver la respuesta en un frame interno;
+    // el WindowProxy del emisor puede no coincidir con el iframe exterior.
+    // El nonce aleatorio vincula la respuesta con la solicitud pendiente.
+    if (!task) return;
     pending.delete(msg.nonce);
     clearTimeout(task.timer);
     task.form.remove();
