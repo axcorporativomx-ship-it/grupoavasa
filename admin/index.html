@@ -20,7 +20,7 @@ function toast(msg){$('#toastRoot').innerHTML='<div class="toast">'+esc(msg)+'</
 function setBusy(btn,busy,text){if(!btn)return;btn.disabled=busy;if(busy)btn.dataset.old=btn.textContent;btn.textContent=busy?'Procesando…':(btn.dataset.old||text||btn.textContent);}
 async function call(promise){const r=await promise;if(!r||r.ok!==true)throw new Error(r?.error||r?.message||'La operación no se pudo completar.');return r;}
 function showLogin(){ showApp({username:'Acceso público',role:'ADMIN'}); }
-function showApp(user){$('#loginView').classList.add('hidden');$('#appView').classList.remove('hidden');$('#userName').textContent=user.username||'Usuario';$('#userRole').textContent=user.role||'';$('#userInitial').textContent=(user.username||'A').slice(0,1).toUpperCase();$('#usersNav').classList.toggle('hidden',user.role!=='ADMIN');$('#historyNav').classList.toggle('hidden',user.role!=='ADMIN');document.querySelector('[data-module="Empleados"]').classList.toggle('hidden',!['ADMIN','RH'].includes(user.role));}
+function showApp(user){$('#appView').classList.remove('hidden');$('#userName').textContent=user.username||'Usuario';$('#userRole').textContent=user.role||'';$('#userInitial').textContent=(user.username||'A').slice(0,1).toUpperCase();$('#usersNav').classList.toggle('hidden',user.role!=='ADMIN');$('#historyNav').classList.toggle('hidden',user.role!=='ADMIN');document.querySelector('[data-module="Empleados"]').classList.toggle('hidden',!['ADMIN','RH'].includes(user.role));}
 async function boot(){ showApp({username:'Acceso público',role:'ADMIN'}); await dashboard(); }
 $('#logoutButton').classList.add('hidden');
 $('#mobileMenu').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
