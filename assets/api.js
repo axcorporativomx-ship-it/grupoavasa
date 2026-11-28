@@ -132,9 +132,9 @@
     listUsers,
     createUser,
     setUserActive,
-    listRecords: (token, module) => request('listRecords', { token, module }),
-    saveRecord: (token, module, record) => request('saveRecord', { token, module, record }),
-    deleteRecord: (token, module, id) => request('deleteRecord', { token, module, id }),
+    listRecords: (token, module) => request('listRecords', { token, modulo: module }),
+    saveRecord: (token, module, record) => request('saveRecord', { token, modulo: module, record }),
+    deleteRecord: (token, module, id) => request('deleteRecord', { token, modulo: module, id }),
     myProfile: token => request('myProfile', { token }),
     generateDocument: (token, documentData) => request('generateDocument', { token, documentData })
   });
