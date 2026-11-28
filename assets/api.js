@@ -1,16 +1,21 @@
 /* Grupo AVASA API transport: GitHub Pages -> Apps Script via hidden form iframe. */
 (() => {
   'use strict';
-  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbybSp25g8kRdOrk90CQ1zdLrqowOjEfdDvKlhGvw__GHQj434D66c0gpV8aKJXySA7W4Q/exec';
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzRA5dJ8SsRasl4iDux_wOpIRHwRrCHo3WHc9q0wghVuRxAHHayQHAhp3p1x3OySqWP/exec';
   const pending = new Map();
+
+  const normalizeRole = role => {
+    const value = String(role || '').toLowerCase();
+    if (value === 'admin') return 'ADMIN';
+    if (value === 'editor') return 'EDITOR';
+    if (value === 'rh') return 'RH';
+    return 'EMPLOYEE';
+  };
 
   window.addEventListener('message', (event) => {
     const msg = event.data;
     if (!msg || msg.channel !== 'AVASA_API' || !msg.nonce) return;
     const task = pending.get(msg.nonce);
-    // Apps Script HtmlService puede envolver la respuesta en un frame interno;
-    // el WindowProxy del emisor puede no coincidir con el iframe exterior.
-    // El nonce aleatorio vincula la respuesta con la solicitud pendiente.
     if (!task) return;
     pending.delete(msg.nonce);
     clearTimeout(task.timer);
@@ -25,7 +30,7 @@
       const nonce = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2));
       const iframe = document.createElement('iframe');
       iframe.name = 'avasa_api_' + nonce.replace(/[^a-z0-9]/gi, '');
-      iframe.title = 'Conexión segura con Grupo AVASA';
+      iframe.title = 'Conexión con Grupo AVASA';
       iframe.hidden = true;
       iframe.setAttribute('aria-hidden', 'true');
 
@@ -38,7 +43,7 @@
       const input = document.createElement('input');
       input.type = 'hidden';
       input.name = 'payload';
-      input.value = JSON.stringify({ action, data, nonce });
+      input.value = JSON.stringify({ action, data, token: data.token || '', nonce });
       form.appendChild(input);
 
       const timer = setTimeout(() => {
@@ -61,15 +66,72 @@
     });
   }
 
+  async function login(username, password) {
+    const r = await request('login', { username, password });
+    if (r.ok && r.user) return { ...r, username: r.user.usuario, role: normalizeRole(r.user.rol) };
+    return r;
+  }
+
+  async function validateSession(token) {
+    const r = await request('validateSession', { token });
+    if (r.ok && r.user) return { ...r, username: r.user.usuario, role: normalizeRole(r.user.rol) };
+    return r;
+  }
+
+  async function dashboard(token) {
+    const r = await request('dashboard', { token });
+    if (!r.ok) return r;
+    const s = r.estadisticas || {};
+    return {
+      ...r,
+      users: s.Usuarios || 0,
+      boletines: s.Boletines || 0,
+      documentos: s.Documentos || 0,
+      proyectos: s.Proyectos || 0,
+      galeria: s.Galeria || 0,
+      empleados: s.Empleados || 0,
+      estadisticas: s.Estadisticas || 0
+    };
+  }
+
+  async function listUsers(token) {
+    const r = await request('listUsers', { token });
+    if (!r.ok) return r;
+    return {
+      ...r,
+      users: (r.users || []).map(u => ({
+        username: u.usuario,
+        role: normalizeRole(u.rol),
+        active: u.activo === true || String(u.activo).toLowerCase() === 'true',
+        created: u.creado,
+        lastLogin: u.ultimo_acceso,
+        employeeId: u.empleado_id
+      }))
+    };
+  }
+
+  function createUser(token, username, password, role, employeeId = '') {
+    const roles = { ADMIN: 'admin', EDITOR: 'editor', RH: 'editor', EMPLOYEE: 'consulta' };
+    return request('createUser', {
+      token, usuario: username, password,
+      rol: roles[String(role).toUpperCase()] || 'consulta',
+      empleado_id: employeeId
+    });
+  }
+
+  function setUserActive(token, username, active) {
+    return request('setUserActive', { token, usuario: username, activo: active });
+  }
+
   window.AvasaAPI = Object.freeze({
     request,
-    login: (username, password) => request('login', { username, password }),
-    validateSession: token => request('validateSession', { token }),
+    login,
+    validateSession,
     logout: token => request('logout', { token }),
-    dashboard: token => request('dashboard', { token }),
-    listUsers: token => request('listUsers', { token }),
-    createUser: (token, username, password, role, employeeId = '') => request('createUser', { token, username, password, role, employeeId }),
-    setUserActive: (token, username, active) => request('setUserActive', { token, username, active }),
+    dashboard,
+    listUsers,
+    createUser,
+    setUserActive,
     listRecords: (token, module) => request('listRecords', { token, module }),
     saveRecord: (token, module, record) => request('saveRecord', { token, module, record }),
     deleteRecord: (token, module, id) => request('deleteRecord', { token, module, id }),
